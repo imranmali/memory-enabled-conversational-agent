@@ -36,7 +36,11 @@ def tokenize(text: str) -> list[str]:
 def _stem(token: str) -> str:
     for suffix in ("ing", "ed", "es", "s"):
         if token.endswith(suffix) and len(token) - len(suffix) >= 3:
-            return token[: -len(suffix)]
+            token = token[: -len(suffix)]
+            break
+    # Fold a trailing "e" so base forms ("live") match their inflections ("lives" -> "liv").
+    if token.endswith("e") and len(token) > 3:
+        token = token[:-1]
     return token
 
 

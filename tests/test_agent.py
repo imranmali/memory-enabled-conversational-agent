@@ -305,3 +305,10 @@ def test_sync_state_write_failure_cleans_up(tmp_path, monkeypatch):
     assert not list(tmp_path.glob(".sync-state-*.tmp"))
     monkeypatch.undo()
     agent.close()
+
+
+def test_remember_question_does_not_create_fact():
+    agent = MemoryAgent("u1")
+    reply = agent.chat("Remember what I'm allergic to.")
+    assert reply.facts_learned == []
+    assert agent.known_facts() == []

@@ -66,3 +66,17 @@ def test_normalize_zero_vector():
 
 def test_satisfies_protocol():
     assert isinstance(HashingEmbedder(), Embedder)
+
+
+def test_base_forms_ending_in_e_match_inflections():
+    e = HashingEmbedder()
+    vectors = e.embed(["live", "lives", "lived", "living"])
+    assert all(v == vectors[0] for v in vectors)
+
+
+def test_third_person_fact_matches_first_person_question():
+    e = HashingEmbedder()
+    fact, question, unrelated = e.embed(
+        ["User lives in Lisbon", "Where do I live?", "What is the weather?"]
+    )
+    assert cosine_similarity(fact, question) > cosine_similarity(fact, unrelated)

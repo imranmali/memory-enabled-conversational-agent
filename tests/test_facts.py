@@ -147,3 +147,16 @@ def test_fact_keys():
     assert fact_key("User lives in Paris") == "home"
     assert fact_key("User's favorite Color is blue") == "favorite:color"
     assert fact_key("User loves hiking") is None
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Remember what I'm allergic to.",
+        "Don't forget where I live",
+        "Please remember how I take my coffee",
+        "remember whether I said yes",
+    ],
+)
+def test_remember_with_embedded_question_yields_no_fact(text):
+    assert extract_facts(text) == []

@@ -122,9 +122,14 @@ def _call_me(match: re.Match[str]) -> str | None:
     return f"User prefers to be called {_title_if_lower(value)}"
 
 
+_EMBEDDED_QUESTION = re.compile(
+    r"^(?:what|where|when|who|whom|whose|which|why|how|whether|if)\b", re.I
+)
+
+
 def _remember(match: re.Match[str]) -> str | None:
     value = _clean_value(match.group("v"))
-    if not value:
+    if not value or _EMBEDDED_QUESTION.match(value):
         return None
     fact = normalize_pronouns(value)
     return fact[0].upper() + fact[1:]
