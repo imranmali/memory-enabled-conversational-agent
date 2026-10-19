@@ -34,6 +34,14 @@ and inflected forms of a word SHALL contribute to the same feature.
 - **WHEN** "hikes" and "hiking" are embedded
 - **THEN** their cosine similarity is greater than zero
 
+#### Scenario: Base forms ending in e match their inflections
+- **WHEN** "live", "lives", "lived" and "living" are each embedded
+- **THEN** all four vectors are identical
+
+#### Scenario: Third-person fact matches first-person question
+- **WHEN** "User lives in Lisbon" is compared to "Where do I live?" and to "What is the weather?"
+- **THEN** the first similarity is greater than the second
+
 ### Requirement: Cosine similarity
 The system SHALL compute cosine similarity between equal-length vectors, return 0 when either
 vector is all zeros, and reject vectors of different lengths.
