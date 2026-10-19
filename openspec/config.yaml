@@ -1,0 +1,45 @@
+schema: spec-driven
+
+context: |
+  Python >=3.10 library + CLI under src/memory_agent (src layout, setuptools).
+  Runtime has zero required third-party dependencies; optional extras (e.g. anthropic) must be
+  imported lazily and never required by tests. Tests use pytest and must run fully offline.
+  Shared types live in src/memory_agent/types.py and protocols in src/memory_agent/interfaces.py;
+  extend them rather than redefining equivalents. Lint/format with ruff (line length 100).
+
+rules:
+  tasks:
+    - Every implementation task must have a matching pytest test task
+  specs:
+    - Every requirement needs at least one WHEN/THEN scenario that a unit test can verify
+
+# Project context (optional)
+# Add only constraints that should guide OpenSpec artifacts and workflows.
+# Include constraints an agent cannot infer by reading the code.
+# Keep general project documentation and discoverable codebase facts out.
+# Example:
+#   context: |
+#     Designs and tasks must cover Windows, macOS, and Linux
+#     Write all artifacts in Spanish
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always state what is out of scope
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
